@@ -1,0 +1,32 @@
+name: Rust
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install arm64 target
+      run: rustup target add aarch64-apple-darwin
+    - name: Install x86 target
+      run: rustup target add x86_64-apple-darwin
+    - name: Build x86
+      run: cargo build --release --target=x86_64-apple-darwin
+    - name: Build arm64
+      run: cargo build --release --target=aarch64-apple-darwin
+    - name: Combine binaries
+      run: lipo -create target/aarch64-apple-darwin/release/lsport target/x86_64-apple-darwin/release/lsport -output lsport
+    - name: Upload a Build Artifact
+      uses: actions/upload-artifact@v2.2.4
+      with:
+        path: lsport
