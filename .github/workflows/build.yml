@@ -18,8 +18,8 @@ jobs:
     - uses: actions/checkout@v2
     - name: dumb workaround for github-actions
       run: |
-        xcode-select -s "/Applications/Xcode_12.3.app"
-        rm -Rf /Library/Developer/CommandLineTools/SDKs/*
+        sudo xcode-select -s "/Applications/Xcode_12.3.app"
+        sudo rm -Rf /Library/Developer/CommandLineTools/SDKs/*
     - name: Install arm64 target
       run: rustup target add aarch64-apple-darwin
     - name: Install x86 target
