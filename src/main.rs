@@ -53,13 +53,14 @@ fn main() -> Result<()> {
                                         )
                                     })?;
                                     println!(
-                                        "{}: {}.{}.{}.{}:{}",
+                                        "{}: {}.{}.{}.{}:{} ({})",
                                         name,
                                         addr >> 24 & 0xff,
                                         addr >> 16 & 0xff,
                                         addr >> 8 & 0xff,
                                         addr & 0xff,
-                                        port
+                                        port,
+                                        pid
                                     );
                                     return Ok(());
                                 }
